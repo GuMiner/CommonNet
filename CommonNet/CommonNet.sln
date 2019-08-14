@@ -3,17 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Permutations", "Permutations\Permutations.csproj", "{B3F9D75C-CEA1-441A-B433-209FC35FE8D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Permutations", "Permutations\Permutations.csproj", "{B3F9D75C-CEA1-441A-B433-209FC35FE8D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomization", "Randomization\Randomization.csproj", "{ADB6DC03-494B-41CA-B794-828497312EFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomization", "Randomization\Randomization.csproj", "{ADB6DC03-494B-41CA-B794-828497312EFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sequence", "Sequence\Sequence.csproj", "{663B6EA3-2DC4-45B7-8750-0E95584F05E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sequence", "Sequence\Sequence.csproj", "{663B6EA3-2DC4-45B7-8750-0E95584F05E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Permutations.Tests", "Permutations.Tests\Permutations.Tests.csproj", "{41902767-0DF0-4982-8910-ACE8DA85489E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Permutations.Tests", "Permutations.Tests\Permutations.Tests.csproj", "{41902767-0DF0-4982-8910-ACE8DA85489E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sequence.Tests", "Sequence.Tests\Sequence.Tests.csproj", "{14A3A9BC-2F75-4681-AAA6-935AA9DF802C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sequence.Tests", "Sequence.Tests\Sequence.Tests.csproj", "{14A3A9BC-2F75-4681-AAA6-935AA9DF802C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomization.Tests", "Randomization.Tests\Randomization.Tests.csproj", "{EB6E8BE4-C650-4AEA-91F3-C41A8BAAFB32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomization.Tests", "Randomization.Tests\Randomization.Tests.csproj", "{EB6E8BE4-C650-4AEA-91F3-C41A8BAAFB32}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Graph.Tests", "Graph.Tests\Graph.Tests.csproj", "{1FF4E0C4-AB48-4F62-B1B4-16A3FF83B7AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graph", "Graph\Graph.csproj", "{2619E841-65B9-419D-90EC-5CB0648AEDEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tree", "Tree\Tree.csproj", "{AE84C4FB-F5A6-4561-B6E6-5489841BF7D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tree.Tests", "Tree.Tests\Tree.Tests.csproj", "{883EFFA9-2BED-4A7D-8A9C-29683EA19B0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +53,22 @@ Global
 		{EB6E8BE4-C650-4AEA-91F3-C41A8BAAFB32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB6E8BE4-C650-4AEA-91F3-C41A8BAAFB32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB6E8BE4-C650-4AEA-91F3-C41A8BAAFB32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FF4E0C4-AB48-4F62-B1B4-16A3FF83B7AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FF4E0C4-AB48-4F62-B1B4-16A3FF83B7AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FF4E0C4-AB48-4F62-B1B4-16A3FF83B7AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FF4E0C4-AB48-4F62-B1B4-16A3FF83B7AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2619E841-65B9-419D-90EC-5CB0648AEDEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2619E841-65B9-419D-90EC-5CB0648AEDEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2619E841-65B9-419D-90EC-5CB0648AEDEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2619E841-65B9-419D-90EC-5CB0648AEDEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE84C4FB-F5A6-4561-B6E6-5489841BF7D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE84C4FB-F5A6-4561-B6E6-5489841BF7D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE84C4FB-F5A6-4561-B6E6-5489841BF7D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE84C4FB-F5A6-4561-B6E6-5489841BF7D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{883EFFA9-2BED-4A7D-8A9C-29683EA19B0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{883EFFA9-2BED-4A7D-8A9C-29683EA19B0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{883EFFA9-2BED-4A7D-8A9C-29683EA19B0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{883EFFA9-2BED-4A7D-8A9C-29683EA19B0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
