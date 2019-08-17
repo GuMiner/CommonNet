@@ -21,12 +21,15 @@ namespace CommonNet.Tree.Core
         /// </remarks>
         protected List<T> Nodes { get; }
 
+        /// <summary>
+        /// Gets the number of nodes stored in the tree, assuming the tree is a complete tree.
+        /// </summary>
+        /// <remarks>
+        /// A complete tree is a binary tree in which every level (except the last) must be completely filled.
+        /// 
+        /// This parameter will overestimate the number of nodes in the tree if the tree is not a complete tree.
+        /// </remarks>
         public int NodeCount => this.Nodes.Count;
-
-        // TODO -- Determine what to do if the node count is 0.
-        public T RootNode => this.Nodes[0];
-
-        public T LastNode => this.Nodes[NodeCount - 1];
 
         public void SwapUnsafe(int firstIndex, int secondIndex)
         {
@@ -40,14 +43,14 @@ namespace CommonNet.Tree.Core
         /// </summary>
         /// <param name="index">The index of the parent</param>
         public int GetLeftChildIndex(int index)
-            => this.ValidateBounds(2 * (index + 1) - 1);
+            => this.ValidateBounds(2 * index + 1);
 
         /// <summary>
         /// Gets the right child index, returning -1 if there is no right child.
         /// </summary>
         /// <param name="index">The index of the parent</param>
         public int GetRightChildIndex(int index)
-            => this.ValidateBounds(2 * (index + 1));
+            => this.ValidateBounds(2 * index + 2));
 
         /// <summary>
         /// Gets the parent index, returning -1 if there is no parent.

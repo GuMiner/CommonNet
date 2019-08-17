@@ -60,7 +60,7 @@ namespace CommonNet.Tree
                 throw new InvalidOperationException("Cannot remove the root item when there are no items in the heap!");
             }
 
-            T rootNode = this.RootNode;
+            T rootNode = this.Nodes[0];
 
             // Pull out the root and put the child at the bottom of the tree in its place
             this.SwapUnsafe(0, this.NodeCount - 1);
