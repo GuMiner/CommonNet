@@ -24,16 +24,20 @@ namespace CommonNet.Tree
             {
                 comparisonFunction = comparer.Compare;
             }
+
+            this.NodeCount = 0;
         }
 
         public void Add(T data)
         {
             // TODO
+            ++this.NodeCount;
         }
 
         public void Remove(int nodeIndex)
         {
             // TODO
+            --this.NodeCount;
         }
 
         /// <summary>
@@ -44,6 +48,11 @@ namespace CommonNet.Tree
         /// </remarks>
         public IEnumerable<T> Enumerate()
             => this.NodeCount == 0 ? Enumerable.Empty<T>() : this.EnumerateNodeAndChildren(0);
+
+        /// <summary>
+        /// Gets the number of nodes stored in the tree.
+        /// </summary>
+        public new int NodeCount { get; private set; }
 
         private IEnumerable<T> EnumerateNodeAndChildren(int nodeIndex)
         {

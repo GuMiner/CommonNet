@@ -50,7 +50,7 @@ namespace CommonNet.Tree.Core
         /// </summary>
         /// <param name="index">The index of the parent</param>
         public int GetRightChildIndex(int index)
-            => this.ValidateBounds(2 * index + 2));
+            => this.ValidateBounds(2 * index + 2);
 
         /// <summary>
         /// Gets the parent index, returning -1 if there is no parent.
