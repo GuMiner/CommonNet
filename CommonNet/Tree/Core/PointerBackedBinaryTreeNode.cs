@@ -19,11 +19,11 @@
 
         public T Data { get; }
 
-        public PointerBackedBinaryTreeNode<T> Left { get; internal set; }
+        public PointerBackedBinaryTreeNode<T> Left { get; set; }
 
-        public PointerBackedBinaryTreeNode<T> Right { get; internal set; }
+        public PointerBackedBinaryTreeNode<T> Right { get; set; }
 
-        public PointerBackedBinaryTreeNode<T> Parent { get; internal set; }
+        public PointerBackedBinaryTreeNode<T> Parent { get; set; }
 
         /// <summary>
         /// Returns the sibling of this node in the tree, null if there are no siblings.
