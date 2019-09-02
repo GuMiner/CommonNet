@@ -3,17 +3,19 @@
     /// <summary>
     /// Defines a node in a Red-Black Tree
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     public class RedBlackTreeNode<T>
     {
-        public RedBlackTreeNode(T data, NodeColor color)
+        public const bool Red = false;
+        public const bool Black = true;
+
+        public RedBlackTreeNode(T data, bool isBlack)
         {
             this.Data = data;
-            this.Color = color;
+            this.IsBlack = isBlack;
         }
 
         public T Data { get; }
 
-        public NodeColor Color { get; set; }
+        public bool IsBlack { get; set; }
     }
 }

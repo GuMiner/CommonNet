@@ -1,4 +1,6 @@
 using CommonNet.Tree;
+using CommonNet.Tree.Core;
+using CommonNet.Tree.RedBlackCore;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -12,41 +14,16 @@ namespace CommonNet.Tests
         public void RedBlackTreeThrowsWithInvalidRemoval()
         {
             RedBlackTree<int> tree = new RedBlackTree<int>();
-            Assert.Throws<InvalidOperationException>(() => tree.Remove(-1));
-            Assert.Throws<InvalidOperationException>(() => tree.Remove(0));
+            Assert.Throws<InvalidOperationException>(() => tree.Remove(null));
+            Assert.Throws<InvalidOperationException>(() => tree.Remove(
+                new PointerBackedBinaryTreeNode<RedBlackTreeNode<int>>(new RedBlackTreeNode<int>(1, true), null)));
 
-            tree.Add(2);
-            Assert.Throws<InvalidOperationException>(() => tree.Remove(1));
+            PointerBackedBinaryTreeNode<RedBlackTreeNode<int>>  addedNode = tree.Add(2);
 
-            tree.Add(3);
-            Assert.Throws<InvalidOperationException>(() => tree.Remove(2));
+            // Removing an identical node to what was added should fail
+            Assert.Throws<InvalidOperationException>(() => tree.Remove(
+                new PointerBackedBinaryTreeNode<RedBlackTreeNode<int>>(new RedBlackTreeNode<int>(2, false), null)));
         }
-
-        [Test]
-        public void RedBlackTreeTracksItemCount()
-        {
-            RedBlackTree<int> tree = new RedBlackTree<int>();
-            Assert.AreEqual(0, tree.NodeCount);
-
-            tree.Add(2);
-            Assert.AreEqual(1, tree.NodeCount);
-
-            tree.Add(4);
-            Assert.AreEqual(2, tree.NodeCount);
-
-            tree.Add(1);
-            Assert.AreEqual(3, tree.NodeCount);
-
-            tree.Add(-1);
-            Assert.AreEqual(4, tree.NodeCount);
-        }
-
-        [Test]
-        public void RedBlackTreeHandlesArbitraryRemovals()
-        {
-            // TODO implement
-        }
-
 
         [Test]
         public void RedBlackTreeReturnsElementsInOrder()

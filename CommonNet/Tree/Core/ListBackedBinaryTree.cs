@@ -31,6 +31,11 @@ namespace CommonNet.Tree.Core
         /// </remarks>
         public int NodeCount => this.Nodes.Count;
 
+        /// <summary>
+        /// Swaps the nodes at both indexes in an unsafe manner with *no* runtime checks performed.
+        /// </summary>
+        /// <param name="firstIndex">The first node index</param>
+        /// <param name="secondIndex">The second node index</param>
         public void SwapUnsafe(int firstIndex, int secondIndex)
         {
             T temp = this.Nodes[firstIndex];
