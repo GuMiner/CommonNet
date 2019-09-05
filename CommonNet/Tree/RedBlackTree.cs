@@ -72,15 +72,6 @@ namespace CommonNet.Tree
         }
 
         /// <summary>
-        /// Enumerates the tree in level-order.
-        /// </summary>
-        /// <remarks>
-        /// This enumeration will return the elements of the tree in sorted order.
-        /// </remarks>
-        public IEnumerable<T> Enumerate()
-            => this.Root == null ? Enumerable.Empty<T>() : this.EnumerateNodeAndChildren(0);
-
-        /// <summary>
         /// Travel down the tree recursively, adding the node at the best leaf found.
         /// </summary>
         private PointerBackedBinaryTreeNode<RedBlackTreeNode<T>> AddRecursive(T data, PointerBackedBinaryTreeNode<RedBlackTreeNode<T>> currentNode)
@@ -142,16 +133,29 @@ namespace CommonNet.Tree
                 currentNode.Parent.Parent.Data.IsBlack = false;
                 InsertRepair(currentNode.Parent.Parent);
             }
-            else // parent is red, uncle is black or missing.
+            else // parent is red, uncle is black or missing, grandparent definitely exists.
             {
-                // TODO
-            }
-        }
+                // Rotate left or right and then reverse the rotation later to effectively switch nodes around
+                // and satisfy red-black height and color properties
+                if (currentNode == currentNode.Parent.Right && currentNode.Parent == currentNode.Parent.Parent.Left)
+                {
+                    this.RotateLeft(currentNode.Parent);
+                    currentNode = currentNode.Left;
 
-        private IEnumerable<T> EnumerateNodeAndChildren(int nodeIndex)
-        {
-            // TODO: Re-implement for this pointer-backed binary tree.
-            return null;
+                    this.RotateRight(currentNode.Parent.Parent);
+                }
+                else if (currentNode == currentNode.Parent.Left && currentNode.Parent == currentNode.Parent.Parent.Right)
+                {
+                    this.RotateRight(currentNode.Parent);
+                    currentNode = currentNode.Right;
+
+                    this.RotateLeft(currentNode.Parent.Parent);
+                }
+
+                // Switching nodes requires switching colors.
+                currentNode.Parent.Data.IsBlack = true;
+                currentNode.Parent.Parent.Data.IsBlack = false;
+            }
         }
     }
 }
