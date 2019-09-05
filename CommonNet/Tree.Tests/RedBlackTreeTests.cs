@@ -4,6 +4,7 @@ using CommonNet.Tree.RedBlackCore;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CommonNet.Tests
 {
@@ -34,7 +35,8 @@ namespace CommonNet.Tests
             List<int> outputList = new List<int>() { 1, 2, 4, 4, 5, 7, 9, 22 };
 
             inputList.ForEach((item) => tree.Add(item));
-            CollectionAssert.AreEqual(outputList, tree.EnumerateInOrder());
+
+            CollectionAssert.AreEqual(outputList, tree.EnumerateInOrder().Select(item => item.Data));
         }
 
         [Test]
@@ -46,7 +48,7 @@ namespace CommonNet.Tests
             List<int> outputList = new List<int>() { 22, 9, 7, 5, 4, 4, 2, 1 };
 
             inputList.ForEach((item) => tree.Add(item));
-            CollectionAssert.AreEqual(outputList, tree.EnumerateInOrder());
+            CollectionAssert.AreEqual(outputList, tree.EnumerateInOrder().Select(item => item.Data));
         }
     }
 }

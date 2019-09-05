@@ -77,7 +77,7 @@ namespace CommonNet.Tree
         private PointerBackedBinaryTreeNode<RedBlackTreeNode<T>> AddRecursive(T data, PointerBackedBinaryTreeNode<RedBlackTreeNode<T>> currentNode)
         {
             PointerBackedBinaryTreeNode<RedBlackTreeNode<T>> newNode = null;
-            if (comparisonFunction(currentNode.Data.Data, data) < 0)
+            if (comparisonFunction(currentNode.Data.Data, data) > 0)
             {
                 if (currentNode.Left == null)
                 {
@@ -142,6 +142,9 @@ namespace CommonNet.Tree
                     this.RotateLeft(currentNode.Parent);
                     currentNode = currentNode.Left;
 
+                    currentNode.Parent.Data.IsBlack = true;
+                    currentNode.Parent.Parent.Data.IsBlack = false;
+
                     this.RotateRight(currentNode.Parent.Parent);
                 }
                 else if (currentNode == currentNode.Parent.Left && currentNode.Parent == currentNode.Parent.Parent.Right)
@@ -149,12 +152,11 @@ namespace CommonNet.Tree
                     this.RotateRight(currentNode.Parent);
                     currentNode = currentNode.Right;
 
+                    currentNode.Parent.Data.IsBlack = true;
+                    currentNode.Parent.Parent.Data.IsBlack = false;
+
                     this.RotateLeft(currentNode.Parent.Parent);
                 }
-
-                // Switching nodes requires switching colors.
-                currentNode.Parent.Data.IsBlack = true;
-                currentNode.Parent.Parent.Data.IsBlack = false;
             }
         }
     }
