@@ -25,6 +25,42 @@ namespace CommonNet.Tests
             CollectionAssert.AreEqual(new int[]{ 2, 1, 3 }, testTree.EnumerateInOrder());
         }
 
+        [Test]
+        public void SetParentPointerValidatesArguments()
+        {
+            Assert.Throws<ArgumentNullException>(() =>new PointerBackedBinaryTree<int>().SetParentPointer(
+                null, new PointerBackedBinaryTreeNode<int>(1, null)));
+        }
+
+        [Test]
+        public void SetParentPointerReplacesNonRootNode()
+        {
+            PointerBackedBinaryTree<int> testTree = new PointerBackedBinaryTree<int>();
+            testTree.Root = new PointerBackedBinaryTreeNode<int>(1, null);
+            testTree.Root.Left = new PointerBackedBinaryTreeNode<int>(2, testTree.Root);
+            testTree.Root.Left.Left = new PointerBackedBinaryTreeNode<int>(3, testTree.Root.Left);
+
+            testTree.SetParentPointer(testTree.Root.Left, testTree.Root.Left.Left);
+            Assert.AreEqual(3, testTree.Root.Left.Data);
+            Assert.AreEqual(testTree.Root, testTree.Root.Left.Parent);
+            Assert.IsNull(testTree.Root.Left.Left);
+            Assert.IsNull(testTree.Root.Left.Right);
+        }
+
+        [Test]
+        public void SetParentPointerReplacesRootNode()
+        {
+            PointerBackedBinaryTree<int> testTree = new PointerBackedBinaryTree<int>();
+            testTree.Root = new PointerBackedBinaryTreeNode<int>(1, null);
+            testTree.Root.Left = new PointerBackedBinaryTreeNode<int>(2, testTree.Root);
+
+            testTree.SetParentPointer(testTree.Root, testTree.Root.Left);
+            Assert.AreEqual(2, testTree.Root.Data);
+            Assert.IsNull(testTree.Root.Parent);
+            Assert.IsNull(testTree.Root.Left);
+            Assert.IsNull(testTree.Root.Right);
+        }
+
         /// <summary>
         /// 1        
         ///  \       

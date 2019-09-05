@@ -68,7 +68,38 @@ namespace CommonNet.Tree
         /// <param name="node">The node to remove.</param>
         public void Remove(PointerBackedBinaryTreeNode<RedBlackTreeNode<T>> node)
         {
-            // TODO -- implement
+            if (node == null)
+            {
+                throw new ArgumentNullException(nameof(node), "Cannot remove a node which does not exist in the tree.");
+            }
+
+            if (node.Left == null && node.Right == null)
+            {
+                // Node has no children, so remove it directly.
+                if (node.Parent == null)
+                {
+                    this.Root = null;
+                    return;
+                }
+                else
+                {
+                    this.SetParentPointer(node, null);
+                }
+            }
+            else if (node.Left == null) // Node has no child child, replace it with the other child
+            {
+                this.SetParentPointer(node, node.Right);
+            }
+            else if (node.Right == null)
+            {
+                this.SetParentPointer(node, node.Left);
+            }
+            else
+            {
+                // Two children. TODO
+            }
+
+            // TODO clean up
         }
 
         /// <summary>

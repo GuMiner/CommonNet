@@ -15,7 +15,7 @@ namespace CommonNet.Tests
         public void RedBlackTreeThrowsWithInvalidRemoval()
         {
             RedBlackTree<int> tree = new RedBlackTree<int>();
-            Assert.Throws<InvalidOperationException>(() => tree.Remove(null));
+            Assert.Throws<ArgumentNullException>(() => tree.Remove(null));
             Assert.Throws<InvalidOperationException>(() => tree.Remove(
                 new PointerBackedBinaryTreeNode<RedBlackTreeNode<int>>(new RedBlackTreeNode<int>(1, true), null)));
 

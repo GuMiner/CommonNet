@@ -108,13 +108,49 @@ namespace CommonNet.Tree.Core
         }
 
         /// <summary>
+        /// Sets the parent of <paramref name="childNode"/> to point to <paramref name="replacementNode"/>, updating <see cref="Root"/> as needed.
+        /// Does not validate the given nodes are part of the tree.
+        /// </summary>
+        /// <param name="childNode">The child node to update.</param>
+        /// <param name="replacementNode">The node to replace thie child node with.</param>
+        public void SetParentPointer(PointerBackedBinaryTreeNode<T> childNode, PointerBackedBinaryTreeNode<T> replacementNode)
+        {
+            if (childNode == null)
+            {
+                throw new ArgumentNullException(nameof(childNode), "Cannot update pointers -- the child node cannot be null");
+            }
+
+            if (childNode.Parent != null)
+            {
+                if (childNode.Parent.Left == childNode)
+                {
+                    childNode.Parent.Left = replacementNode;
+                }
+                else
+                {
+                    childNode.Parent.Right = replacementNode;
+                }
+            }
+            else
+            {
+                // This was the root node
+                this.Root = replacementNode;
+            }
+
+            if (replacementNode != null)
+            {
+                replacementNode.Parent = childNode.Parent;
+            }
+        }
+
+        /// <summary>
         /// Validates that the node to rotate and the pivot node both exist.
         /// </summary>
         private static void ValidateRotationNode(PointerBackedBinaryTreeNode<T> node, PointerBackedBinaryTreeNode<T> pivotNode)
         {
             if (node == null)
             {
-                throw new ArgumentNullException(nameof(node), "Cannot perform tree rotation --the node to rotate around cannot be null");
+                throw new ArgumentNullException(nameof(node), "Cannot perform tree rotation --the node to rotate around cannot be null.");
             }
 
             if (pivotNode == null)
@@ -130,27 +166,7 @@ namespace CommonNet.Tree.Core
         /// <param name="pivotNode">The node which was previously a child of <paramref name="node"/></param>
         private void FixRotationParentPointers(PointerBackedBinaryTreeNode<T> node, PointerBackedBinaryTreeNode<T> pivotNode)
         {
-            // If the original node isn't the root node, other pointers also need updating.
-            PointerBackedBinaryTreeNode<T> parentNode = node.Parent;
-            if (node.Parent != null)
-            {
-                if (node.Parent.Left == node)
-                {
-                    node.Parent.Left = pivotNode;
-                }
-                else
-                {
-                    node.Parent.Right = pivotNode;
-                }
-            }
-            else
-            {
-                // This was the root node
-                this.Root = pivotNode;
-            }
-
-            // Update the current node and the pivot node to their correct parents.
-            pivotNode.Parent = node.Parent;
+            this.SetParentPointer(node, pivotNode);
             node.Parent = pivotNode;
         }
     }
