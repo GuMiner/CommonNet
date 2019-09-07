@@ -58,8 +58,34 @@ namespace CommonNet.Tree
             return newNode;
         }
 
-        // TODO: Add a find method, which would work better with a dual-generic design
-        // TODO: Add a 'find closest' method, which would also work better with the above.
+        /// <summary>
+        /// Attempts to find the first node with the specified data. Returns <c>null</c> if no node was found.
+        /// </summary>
+        /// <param name="data">The data to find.</param>
+        /// <returns>The node found, null if none found.</returns>
+        public PointerBackedBinaryTreeNode<RedBlackTreeNode<T>> Find(T data)
+        {
+            PointerBackedBinaryTreeNode<RedBlackTreeNode<T>> currentNode = this.Root;
+            while (currentNode != null)
+            {
+                int comparisonResult = comparisonFunction(currentNode.Data.Data, data);
+                if (comparisonResult > 0)
+                {
+                    currentNode = currentNode.Left;
+                }
+                else if (comparisonResult == 0)
+                {
+                    // Found the node we want!
+                    break;
+                }
+                else
+                {
+                    currentNode = currentNode.Right;
+                }
+            }
+
+            return currentNode;
+        }
 
         /// <summary>
         /// Removes the specified node (the object itself) from the tree.
@@ -73,6 +99,7 @@ namespace CommonNet.Tree
                 throw new ArgumentNullException(nameof(node), "Cannot remove a node which does not exist in the tree.");
             }
 
+            PointerBackedBinaryTreeNode<RedBlackTreeNode<T>> childNode;
             if (node.Left == null && node.Right == null)
             {
                 // Node has no children, so remove it directly.
@@ -86,20 +113,113 @@ namespace CommonNet.Tree
                     this.SetParentPointer(node, null);
                 }
             }
-            else if (node.Left == null) // Node has no child child, replace it with the other child
+            else
             {
-                this.SetParentPointer(node, node.Right);
+                // Delete node, replacing with child node.
+                childNode = node.Left == null ? node.Right : node.Left;
+                childNode.Parent = node.Parent;
+                if (node.Parent.Left == node)
+                {
+                    node.Parent.Left = childNode;
+                }
+                else
+                {
+                    node.Parent.Right = childNode;
+                }
+
+                // Clean up colors
+                if (node.Data.IsBlack)
+                {
+                    // Switch red to black in the easy case.
+                    if (!childNode.Data.IsBlack)
+                    {
+                        childNode.Data.IsBlack = true;
+                    }
+                    else
+                    {
+                        DeleteRepair(childNode);
+                    }
+                }
             }
-            else if (node.Right == null)
+        }
+
+        private void DeleteRepair(PointerBackedBinaryTreeNode<RedBlackTreeNode<T>> node)
+        {
+            if (node.Parent != null)
             {
-                this.SetParentPointer(node, node.Left);
+                // If this node isn't the root, we need to...
+                PointerBackedBinaryTreeNode<RedBlackTreeNode<T>> sibling = node.GetSibling();
+                if (!sibling.Data.IsBlack)
+                {
+                    // ... reverse colors
+                    sibling.Parent.Data.IsBlack = false;
+                    sibling.Data.IsBlack = true;
+
+                    // .... and rotate around
+                    if (node.Parent.Left == node)
+                    {
+                        this.RotateLeft(node.Parent);
+                    }
+                    else
+                    {
+                        this.RotateRight(node.Parent);
+                    }
+                }
+
+                // Once we do that, we need to possibly ...
+                if (sibling.Data.IsBlack && sibling.Left.Data.IsBlack && sibling.Right.Data.IsBlack)
+                {
+                    // ... repeat recursivly or color theparent
+                    sibling.Data.IsBlack = false;
+                    if (node.Parent.Data.IsBlack)
+                    {
+                        
+                        DeleteRepair(node.Parent);
+                    }
+                    else
+                    {
+                        node.Parent.Data.IsBlack = false;
+                    }
+                }
+                else
+                {
+                    // ... or perform more rotations with coloration swaps
+                    if (sibling.Data.IsBlack)
+                    {
+                        // Force subsequent rotations to 'do the right thing'
+                        if (node.Parent.Left == node && sibling.Right.Data.IsBlack && !sibling.Left.Data.IsBlack)
+                        {
+                            sibling.Data.IsBlack = false;
+                            sibling.Left.Data.IsBlack = true;
+                            this.RotateRight(sibling);
+                        }
+                        else if (node.Parent.Right == node && sibling.Left.Data.IsBlack && !sibling.Right.Data.IsBlack)
+                        {
+                            sibling.Data.IsBlack = false;
+                            sibling.Right.Data.IsBlack = true;
+                            this.RotateLeft(sibling);
+                        }
+                    }
+
+                    sibling.Data.IsBlack = node.Parent.Data.IsBlack;
+                    node.Parent.Data.IsBlack = true;
+
+                    if (node.Parent.Left == node)
+                    {
+                        sibling.Right.Data.IsBlack = true;
+                        this.RotateLeft(node.Parent);
+                    }
+                    else
+                    {
+                        sibling.Left.Data.IsBlack = true;
+                        this.RotateRight(node.Parent);
+                    }
+                }
             }
             else
             {
-                // Two children. TODO
+                this.Root = node;
             }
-
-            // TODO clean up
         }
 
         /// <summary>
