@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>CommonNet.Cryptography</AssemblyName>
+    <RootNamespace>CommonNet.Cryptography</RootNamespace>
+  </PropertyGroup>
+
+</Project>
